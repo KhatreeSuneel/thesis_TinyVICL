@@ -1,0 +1,58 @@
+dataloader:
+  # Directory to recursively search for images; The directory and all subdirectories are searched for images
+  search_dir: '/path/to/data'
+  type: ".png"                                              # Image type to convert all images to
+  types: [".png", ".jpg", ".jpeg", ".tif", ".bmp"]          # List of supported image types
+  mode: "RGB"                                               # Mode to convert all images to
+  metadata_location: "/path/to/data/metadata.csv"                    # Location, where to save the resulting Metadata DataFrame
+ 
+non_segmentation_tasks : ["DenoisingTask", "DerainingTask","InpaintingTask","SuperresolutionTask","DepthTask"]
+edge_detection_tasks : ["EdgeTask"]
+segmentation_tasks : ['SegmentationTask']
+
+tasks:
+  inpainting:
+    lossfun: "MSE+DSSIM"                                          
+  denoising: 
+    lossfun: "MSE+DSSIM"                                          
+  deraining:
+    lossfun: "MSE+DSSIM"                                          
+  segmentation:
+    lossfun: "EuclideanSoftDice"
+  superresolution: 
+    lossfun: "MSE+DSSIM" 
+  depth_estimation:
+    lossfun: "MSE+DSSIM"
+  edge_detection:
+    lossfun: "MSE+DSSIM"                                
+
+# -- TRAINING SETTINGS -- RESPONSIBLE FOR DATA LOADING, FITTING ETC...
+training:
+  dataset:
+    resize_shape: !!python/tuple [256, 256]                 # Target shape to resize all images to
+    context_set_size: 5                                     # Size of the context set
+    cover_query_labels: False
+  data_augmentation:
+    p_horizontal_flip: 0.5                                  # v2.RandomHorizontalFlip
+  dataloader:
+    batch_size: 3
+    num_workers: 128
+  model_instantiation:                                      # Params for the neuralizer architecture
+    data_slice_only: True
+    nb_levels: 4
+    nb_inner_channels: [64, 64, 64, 64]                # Choices : [64, 64, 64, 64] or [32, 64, 128, 256] 
+    nb_conv_layers_per_stage: 2
+    learning_rate: 0.0001
+  tensorboard_logger:
+    save_dir: "path/to/tensorboard_logs"
+    name: "GeneralNeuralizer"
+  pl_trainer:
+    max_epochs: 64
+    log_every_n_steps: 200
+    default_root_dir: "path/to/logs/"
+    enable_checkpointing: True
+  early_stopping:
+    monitor: "val_loss"
+    mode: "min" 
+    patience: 10
+  
