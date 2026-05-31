@@ -51,14 +51,11 @@ This project stress-tests the role of scale in Visual In-Context Learning (VICL)
 
 # 👨🏽‍💻 Installation
 
-1. Clone the repository by running the following command:
-   ```shell
-   git clone 
-   ```
+1. Clone the repository 
 
 2. Navigate to the project root directory by running the following command in your terminal:
    ```shell
-   cd TinyVICL
+   cd thesis_TinyVICL
    ```
 
 3. Create a virtual environment and activate it.
