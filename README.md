@@ -25,6 +25,7 @@ This project stress-tests the role of scale in Visual In-Context Learning (VICL)
  ┣ 📂configs                                     <-- Configuration files for the pipeline
  ┃  ┗ ⚙️config.yaml                              <-- Configuration file for SSH development (default)
  ┣ 📂data                                        <-- Provided data (.csv files, training images, ...)
+ ┣ 📂docs                                        <-- Provided data (additional documentation for dataset setup)
  ┣ 📂logs                                        <-- Contains logs from the training, e.g. tensorboard logs
  ┣ 📂models                                      <-- Saved models during Development
  ┃  ┣ 📂Generalizer                              <-- Checkpoints of trained Model
